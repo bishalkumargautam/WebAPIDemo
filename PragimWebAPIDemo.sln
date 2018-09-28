@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PragimWebAPIDemo", "PragimWebAPIDemo\PragimWebAPIDemo.csproj", "{95B0ECEB-0946-4B8B-8E72-AE98EA3B6CBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDAL", "EmployeeDAL\EmployeeDAL.csproj", "{77B82F15-078C-4243-8A73-D34FED8954CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95B0ECEB-0946-4B8B-8E72-AE98EA3B6CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B0ECEB-0946-4B8B-8E72-AE98EA3B6CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B0ECEB-0946-4B8B-8E72-AE98EA3B6CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B0ECEB-0946-4B8B-8E72-AE98EA3B6CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B82F15-078C-4243-8A73-D34FED8954CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B82F15-078C-4243-8A73-D34FED8954CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B82F15-078C-4243-8A73-D34FED8954CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B82F15-078C-4243-8A73-D34FED8954CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F8DB52D-9AA9-46B5-929F-9956DDF3F841}
+	EndGlobalSection
+EndGlobal
