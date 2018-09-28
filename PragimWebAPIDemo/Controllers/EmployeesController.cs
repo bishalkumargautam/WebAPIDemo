@@ -10,12 +10,38 @@ namespace PragimWebAPIDemo.Controllers
 {
     public class EmployeesController : ApiController
     {
-        //Get
-        public IEnumerable<Employee> Get()
+        //Get 
+        public HttpResponseMessage Get(string gender = "All")
         {
-            using (EmployeeDBEntities entities = new EmployeeDBEntities())
+            try
             {
-                return entities.Employees.ToList();
+                using (EmployeeDBEntities entities = new EmployeeDBEntities())
+                {
+                    switch (gender.ToLower())
+                    {
+                        case "all":
+                            {
+                                return Request.CreateResponse(HttpStatusCode.OK, entities.Employees.ToList());
+
+                            }
+                        case "male":
+                            {
+                                return Request.CreateResponse(HttpStatusCode.OK,
+                                    entities.Employees.Where(e => e.Gender == gender).ToList());
+                            }
+                        case "female":
+                            {
+                                return Request.CreateResponse(HttpStatusCode.OK, entities.Employees.Where(e => e.Gender == gender).ToList());
+                            }
+                        default:
+                            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Request can be either 'male', 'female' or 'all'");
+
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
         //Get ID
