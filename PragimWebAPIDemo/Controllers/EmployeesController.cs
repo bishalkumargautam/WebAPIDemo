@@ -13,7 +13,7 @@ namespace PragimWebAPIDemo.Controllers
         //Get
         public IEnumerable<Employee> Get()
         {
-           using(EmployeeDBEntities entities= new EmployeeDBEntities())
+            using (EmployeeDBEntities entities = new EmployeeDBEntities())
             {
                 return entities.Employees.ToList();
             }
@@ -21,21 +21,21 @@ namespace PragimWebAPIDemo.Controllers
         //Get ID
         public HttpResponseMessage Get(int id)
         {
-            using(EmployeeDBEntities entities = new EmployeeDBEntities())
+            using (EmployeeDBEntities entities = new EmployeeDBEntities())
             {
-                var entity= entities.Employees.FirstOrDefault(e => e.ID == id);
+                var entity = entities.Employees.FirstOrDefault(e => e.ID == id);
                 if (entity != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, entity);
                 }
                 else
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,"Employee with ID "+id
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Employee with ID " + id
                         + " not found in the database");
                 }
             }
         }
-       // Post
+        // Post
         public HttpResponseMessage Post([FromBody] Employee employee)
         {
             try
@@ -49,7 +49,7 @@ namespace PragimWebAPIDemo.Controllers
                     return message;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
@@ -61,7 +61,7 @@ namespace PragimWebAPIDemo.Controllers
             {
                 using (EmployeeDBEntities entities = new EmployeeDBEntities())
                 {
-                   var entity= entities.Employees.FirstOrDefault((e => e.ID == id));
+                    var entity = entities.Employees.FirstOrDefault((e => e.ID == id));
 
                     if (entity != null)
                     {
@@ -74,12 +74,36 @@ namespace PragimWebAPIDemo.Controllers
                     {
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Employee with Id " + id + " not found.");
                     }
-                   
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+        //Put
+        public HttpResponseMessage Put([FromUri] int id, [FromBody]Employee employee)
+        {
+            try
+            {
+                using (EmployeeDBEntities entities = new EmployeeDBEntities())
+                {
+                    var entity = entities.Employees.FirstOrDefault(e => e.ID == id);
+                    if (entity == null)
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Employee with Id " + id + " is not present.");
+                    }
+                    entity.FirstName = employee.FirstName;
+                    entity.LastName = employee.LastName;
+                    entity.Salary = employee.Salary;
+                    entity.Gender = employee.Gender;
+                    entities.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.OK, "Employee with Id " + id + " is updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
 
