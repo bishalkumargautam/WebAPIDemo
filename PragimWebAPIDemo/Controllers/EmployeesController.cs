@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 using EmployeeDAL;
 
@@ -11,30 +12,28 @@ namespace PragimWebAPIDemo.Controllers
     public class EmployeesController : ApiController
     {
         //Get 
+        [BasicAuthentication]
         public HttpResponseMessage Get(string gender = "All")
         {
             try
             {
+                string username = Thread.CurrentPrincipal.Identity.Name;
                 using (EmployeeDBEntities entities = new EmployeeDBEntities())
                 {
-                    switch (gender.ToLower())
+                    switch (username.ToLower())
                     {
-                        case "all":
-                            {
-                                return Request.CreateResponse(HttpStatusCode.OK, entities.Employees.ToList());
-
-                            }
+                       
                         case "male":
                             {
                                 return Request.CreateResponse(HttpStatusCode.OK,
-                                    entities.Employees.Where(e => e.Gender == gender).ToList());
+                                    entities.Employees.Where(e => e.Gender == "male").ToList());
                             }
                         case "female":
                             {
-                                return Request.CreateResponse(HttpStatusCode.OK, entities.Employees.Where(e => e.Gender == gender).ToList());
+                                return Request.CreateResponse(HttpStatusCode.OK, entities.Employees.Where(e => e.Gender == "female").ToList());
                             }
                         default:
-                            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Request can be either 'male', 'female' or 'all'");
+                            return Request.CreateResponse(HttpStatusCode.BadRequest);
 
                     }
                 }
